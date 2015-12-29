@@ -42,7 +42,7 @@ namespace Monads
             return new Failure<U>(exception);
         }
 
-        public override Try<U> MapFlat<U>(Func<T, Try<U>> mapper)
+        public override Try<U> FlatMap<U>(Func<T, Try<U>> mapper)
         {
             return new Failure<U>(exception);
         }

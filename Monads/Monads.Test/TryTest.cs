@@ -22,7 +22,7 @@ namespace Monads.Test
         public void TestFlatMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
-                .MapFlat(e => e.IsNameKees())
+                .FlatMap(e => e.IsNameKees())
                 .Get();
 
             Assert.IsTrue(result);
@@ -41,7 +41,7 @@ namespace Monads.Test
         public void TestRecoverOnFlatMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
-                .MapFlat(e => e.WillThrowException())
+                .FlatMap(e => e.WillThrowException())
                 .Recover(ex => repo.Create("Jaap"));
 
             Assert.IsTrue(result.IsSuccess);
@@ -51,7 +51,7 @@ namespace Monads.Test
         public void TestSpecificRecoverOnFlatMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
-                .MapFlat(e => e.WillThrowTryException())
+                .FlatMap(e => e.WillThrowTryException())
                 .Recover<TryException>(e => repo.Create("Jaap"))
                 .Recover(ex => repo.Create("Jan"));
 
@@ -63,7 +63,7 @@ namespace Monads.Test
         public void TestRecoverSkippingSpecificRecoverOnFlatMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
-                .MapFlat(e => e.WillThrowException())
+                .FlatMap(e => e.WillThrowException())
                 .Recover<TryException>(e => repo.Create("Jaap"))
                 .Recover(ex => repo.Create("Jan"));
 
