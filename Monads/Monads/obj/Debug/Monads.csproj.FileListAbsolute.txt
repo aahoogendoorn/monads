@@ -1,0 +1,5 @@
+C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads\bin\Debug\Monads.dll
+C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads\bin\Debug\Monads.pdb
+C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads\obj\Debug\Monads.csprojResolveAssemblyReference.cache
+C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads\obj\Debug\Monads.dll
+C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads\obj\Debug\Monads.pdb
