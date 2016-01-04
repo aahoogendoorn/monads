@@ -2,6 +2,10 @@
 
 namespace Monads
 {
+    /// <summary>
+    /// Success{T} is a <see cref="Try{T}"/> subclass that holds a value of type {T} after successful invoking a <see cref="Try{T}.Map{U}"/>. 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Success<T> : Try<T>
     {
         private readonly T value;
