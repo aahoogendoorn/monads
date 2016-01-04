@@ -36,6 +36,11 @@ namespace Monads
             return default(T);
         }
 
+        public override T GetOrElse(T other)
+        {
+            return other;
+        }
+
 
         public override Try<U> Map<U>(Func<T, U> mapper)
         {

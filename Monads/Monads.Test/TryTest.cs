@@ -88,5 +88,25 @@ namespace Monads.Test
 
             Assert.IsTrue(result.IsFailure);
         }
+
+
+        [TestMethod]
+        public void TestGetOrElse()
+        {
+            var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
+                .GetOrElse(repo.Create("Hans"));
+
+            Assert.AreEqual(result.Name, "Kees");
+        }
+
+        [TestMethod]
+        public void TestGetOrElseFails()
+        {
+            var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
+                .Filter(e => e.IsNameKees().Get())
+                .GetOrElse(repo.Create("Hans"));
+
+            Assert.AreEqual(result.Name, "Hans");
+        }
     }
 }

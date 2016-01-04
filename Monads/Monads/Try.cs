@@ -28,6 +28,13 @@ namespace Monads
         public abstract T GetOrDefault();
 
         /// <summary>
+        /// Gets the value if it is a <see cref="Success{T}"/> or the <paramref name="other"/> otherwise
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>Value or <paramref name="other"/> if this is a <see cref="Failure{T}"/></returns>
+        public abstract T GetOrElse(T other);
+
+        /// <summary>
         /// Invokes a function <paramref name="mapper"/> on type <typeparamref name="U"/>
         /// </summary>
         /// <typeparam name="U">Any type</typeparam>

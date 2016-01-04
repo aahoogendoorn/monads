@@ -20,6 +20,11 @@ namespace Monads
             return value;
         }
 
+        public override T GetOrElse(T other)
+        {
+            return value;
+        }
+
         public Success(T value)
         {
             this.value = value;
