@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Monads</name>
+    </assembly>
+    <members>
+        <member name="T:Monads.Success`1">
+            <summary>
+            Success{T} is a <see cref="T:Monads.Try`1"/> subclass that holds a value of type {T} after successful invoking a <see cref="M:Monads.Try`1.Map``1(System.Func{`0,``0})"/>. 
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Monads.Try`1.IsSuccess">
+            <summary>
+            Returns whether a <see cref="T:Monads.Try`1"/> is a <see cref="T:Monads.Success`1"/> (true) or a <see cref="T:Monads.Failure`1"/>  (false)
+            </summary>
+        </member>
+        <member name="P:Monads.Try`1.IsFailure">
+            <summary>
+            Returns whether a <see cref="T:Monads.Try`1"/>is a <see cref="T:Monads.Failure`1"/> (true) or a <see cref="T:Monads.Success`1"/> (false)
+            </summary>
+        </member>
+        <member name="M:Monads.Try`1.Get">
+            <summary>
+            Gets the value of the <see cref="T:Monads.Try`1"/> if it is a <see cref="T:Monads.Success`1"/>, and throws an exception if it is a <see cref="T:Monads.Failure`1"/>
+            </summary>
+            <returns>Value if it is a <see cref="T:Monads.Success`1"/> or the exception if it is a <see cref="T:Monads.Failure`1"/></returns>
+        </member>
+        <member name="M:Monads.Try`1.GetOrDefault">
+            <summary>
+            Gets the value of the <see cref="T:Monads.Try`1"/> if it is a <see cref="T:Monads.Success`1"/>, and the dafult value of T if it is a <see cref="T:Monads.Failure`1"/>
+            </summary>
+            <returns>Value if it is a <see cref="T:Monads.Success`1"/> or the default of T if it is a <see cref="T:Monads.Failure`1"/></returns>
+        </member>
+        <member name="M:Monads.Try`1.GetOrElse(`0)">
+            <summary>
+            Gets the value if it is a <see cref="T:Monads.Success`1"/> or the <paramref name="other"/> otherwise
+            </summary>
+            <param name="other"></param>
+            <returns>Value or <paramref name="other"/> if this is a <see cref="T:Monads.Failure`1"/></returns>
+        </member>
+        <member name="M:Monads.Try`1.Invoke``1(System.Func{``0})">
+            <summary>
+            Invokes a function <paramref name="mapper"/> on type <typeparamref name="U"/>
+            </summary>
+            <typeparam name="U">Any type</typeparam>
+            <param name="mapper">Function on type U</param>
+            <returns>A <see cref="T:Monads.Success`1"/> if the function does not throw an exception, a <see cref="T:Monads.Failure`1"/> if it does, holding the exception</returns>
+        </member>
+        <member name="M:Monads.Try`1.Map``1(System.Func{`0,``0})">
+            <summary>
+            Maps an instance of type T to an instance of type U by invoking function mapper  
+            </summary>
+            <typeparam name="U">Any type that is the result of invoking the function</typeparam>
+            <param name="mapper">Function on type T, which is the type of the current value</param>
+            <returns>A <see cref="T:Monads.Success`1"/> if the function does not throw an exception, A <see cref="T:Monads.Failure`1"/> if it does, holding the exception</returns>
+        </member>
+        <member name="M:Monads.Try`1.FlatMap``1(System.Func{`0,Monads.Try{``0}})">
+            <summary>
+            Maps an instance of type T to an instance of type <see cref="T:Monads.Try`1"/> by invoking the function mapper 
+            </summary>
+            <typeparam name="U">Any type that is the result of invoking the function</typeparam>
+            <param name="mapper">Function on type T, which is the type of the current value</param>
+            <returns>A <see cref="T:Monads.Success`1"/> if the function does not throw an exception, A <see cref="T:Monads.Failure`1"/> if it does, holding the exception</returns>
+        </member>
+        <member name="M:Monads.Try`1.Recover(System.Func{System.Exception,`0})">
+            <summary>
+            Recover from a Failure holding any exception to a <see cref="T:Monads.Try`1"/>
+            </summary>
+            <param name="recover">Function returning an instance of type T</param>
+            <returns><see cref="T:Monads.Success`1"/> if invoking function does not throw an exception, a <see cref="T:Monads.Failure`1"/> otherwise</returns>
+        </member>
+        <member name="M:Monads.Try`1.Recover``1(System.Func{System.Exception,`0})">
+            <summary>
+            Recover from a Failure holding an exception of type U to a <see cref="T:Monads.Try`1"/>
+            </summary>
+            <param name="recover">Function returning an instance of type T</param>
+            <returns><see cref="T:Monads.Success`1"/> if invoking function does not throw an exception, a <see cref="T:Monads.Failure`1"/> otherwise</returns>
+        </member>
+        <member name="M:Monads.Try`1.Filter(System.Predicate{`0})">
+            <summary>
+            Filters using a predicate
+            </summary>
+            <param name="predicate">Predicate to test on T</param>
+            <returns><see cref="T:Monads.Success`1"/> if predicate returns true, <see cref="T:Monads.Failure`1"/> if it returns false</returns>
+        </member>
+        <member name="M:Monads.Try`1.Set(System.Action{`0})">
+            <summary>
+            Can set value on an object and return is
+            </summary>
+            <param name="setter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Monads.TryException">
+            <summary>
+            Exception used by family of <see cref="T:Monads.Try`1"/> classes to throw it's own exceptions.
+            </summary>
+        </member>
+        <member name="M:Monads.TryException.#ctor(System.String,System.Object[])">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Message for exception, formatted with the <paramref name="p"/> parameters</param>
+            <param name="p">Parameters used in <paramref name="message"/></param>
+        </member>
+    </members>
+</doc>

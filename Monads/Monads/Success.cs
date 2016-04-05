@@ -77,5 +77,19 @@ namespace Monads
                 return new Failure<T>("There are no results from applying the predicate");
             }
         }
+
+        public override Try<T> Set(Action<T> setter)
+        {
+            try
+            {
+                setter.Invoke(value);
+
+                return this;
+            }
+            catch (Exception ex)
+            {
+                return new Failure<T>(ex);
+            }
+        }
     }
 }
