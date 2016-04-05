@@ -73,8 +73,10 @@ namespace Monads
         {
             return this;
         }
- 
 
-
+        public override Try<T> Set(Action<T> setter)
+        {
+            return this;
+        }
     }
 }

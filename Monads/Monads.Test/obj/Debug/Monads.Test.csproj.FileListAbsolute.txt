@@ -6,3 +6,12 @@ C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads.Test\bin\Debug\Monads.pdb
 C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads.Test\obj\Debug\Monads.Test.dll
 C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads.Test\obj\Debug\Monads.Test.pdb
 C:\Users\Sander\Dropbox\Projects\Monads\Monads\Monads.Test\bin\Debug\Monads.xml
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\bin\Debug\Monads.Test.dll
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\bin\Debug\Monads.Test.pdb
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\bin\Debug\Monads.dll
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\bin\Debug\Monads.pdb
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\bin\Debug\Monads.xml
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\obj\Debug\Monads.Test.csprojResolveAssemblyReference.cache
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\obj\Debug\Monads.Test.dll
+C:\Bitbucket\aahoogendoorn\Monads\Monads.Test\obj\Debug\Monads.Test.pdb

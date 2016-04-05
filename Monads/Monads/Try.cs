@@ -87,7 +87,13 @@ namespace Monads
         /// </summary>
         /// <param name="predicate">Predicate to test on T</param>
         /// <returns><see cref="Success{T}"/> if predicate returns true, <see cref="Failure{T}"/> if it returns false</returns>
-        public abstract Try<T> Filter(Predicate<T> predicate);     
-        
+        public abstract Try<T> Filter(Predicate<T> predicate);
+
+        /// <summary>
+        /// Can set value on an object and return is
+        /// </summary>
+        /// <param name="setter"></param>
+        /// <returns></returns>
+        public abstract Try<T> Set(Action<T> setter);
     }
 }
