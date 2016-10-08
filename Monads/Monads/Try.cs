@@ -2,6 +2,10 @@
 
 namespace Monads
 {
+    /// <summary>
+    /// Abstract monad class that holds a value (in a <see cref="Success{T}"/> or an exception (in a <see cref="Failure{T}"/>. 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class Try<T>
     {
         /// <summary>
@@ -20,6 +24,12 @@ namespace Monads
         /// <returns>Value if it is a <see cref="Success{T}"/> or the exception if it is a <see cref="Failure{T}"/></returns>
         public abstract T Get();
 
+        /// <summary>
+        /// Gets the value of the <see cref="Try{T}"/> if it is a <see cref="Success{T}"/>, and throws an exception if it is a <see cref="Failure{T}"/>
+        /// </summary>
+        /// <returns>Value if it is a <see cref="Success{T}"/> or the exception if it is a <see cref="Failure{T}"/></returns>
+        public abstract T Value { get; }
+
 
         /// <summary>
         /// Gets the value of the <see cref="Try{T}"/> if it is a <see cref="Success{T}"/>, and the dafult value of T if it is a <see cref="Failure{T}"/>
@@ -33,6 +43,13 @@ namespace Monads
         /// <param name="other"></param>
         /// <returns>Value or <paramref name="other"/> if this is a <see cref="Failure{T}"/></returns>
         public abstract T GetOrElse(T other);
+
+        /// <summary>
+        /// Return this <see cref="Try{T}"/> if it is a <see cref="Success{T}"/> or the result of <paramref name="other"/> if it is a <see cref="Failure{T}"/>
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public abstract Try<T> OrElse(Func<T> other);
 
         /// <summary>
         /// Invokes a function <paramref name="mapper"/> on type <typeparamref name="U"/>

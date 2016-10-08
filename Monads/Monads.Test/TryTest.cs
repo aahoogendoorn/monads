@@ -13,7 +13,7 @@ namespace Monads.Test
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
                 .Map(e => e.Name)
                 .Map(s => s.EndsWith("s"))
-                .Get();
+                .Value;
 
             Assert.IsTrue(result);
         }
@@ -23,7 +23,7 @@ namespace Monads.Test
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
                 .FlatMap(e => e.IsNameKees())
-                .Get();
+                .Value;
 
             Assert.IsTrue(result);
         }
@@ -68,14 +68,14 @@ namespace Monads.Test
                 .Recover(ex => repo.Create("Jan"));
 
             Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(result.Get().Name, "Jan");
+            Assert.AreEqual(result.Value.Name, "Jan");
         }
 
         [TestMethod]
         public void TestFilter()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
-                .Filter(e => e.IsNameKees().Get());
+                .Filter(e => e.IsNameKees().Value);
 
             Assert.IsTrue(result.IsSuccess);
         }
@@ -84,7 +84,7 @@ namespace Monads.Test
         public void TestFilterNegative()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
-                .Filter(e => e.IsNameKees().Get());
+                .Filter(e => e.IsNameKees().Value);
 
             Assert.IsTrue(result.IsFailure);
         }
@@ -103,8 +103,29 @@ namespace Monads.Test
         public void TestGetOrElseFails()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
-                .Filter(e => e.IsNameKees().Get())
+                .Filter(e => e.IsNameKees().Value)
                 .GetOrElse(repo.Create("Hans"));
+
+            Assert.AreEqual(result.Name, "Hans");
+        }
+        
+        [TestMethod]
+        public void TestOrElse()
+        {
+            var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
+                .OrElse(() => repo.Create("Hans"))
+                .Get();
+
+            Assert.AreEqual(result.Name, "Kees");
+        }
+
+        [TestMethod]
+        public void TestOrElseFails()
+        {
+            var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
+                .Filter(e => e.IsNameKees().Value)
+                .OrElse(() => repo.Create("Hans"))
+                .Get();
 
             Assert.AreEqual(result.Name, "Hans");
         }

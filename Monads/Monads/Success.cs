@@ -15,6 +15,11 @@ namespace Monads
             return value;
         }
 
+        public override T Value
+        {
+            get { return value; }
+        }
+
         public override T GetOrDefault()
         {
             return value;
@@ -23,6 +28,11 @@ namespace Monads
         public override T GetOrElse(T other)
         {
             return value;
+        }
+
+        public override Try<T> OrElse(Func<T> other)
+        {
+            return this;
         }
 
         public Success(T value)

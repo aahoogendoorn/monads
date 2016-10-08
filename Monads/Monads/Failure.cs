@@ -31,6 +31,12 @@ namespace Monads
             throw exception;
         }
 
+        public override T Value
+        {
+            get { throw exception; }
+        }
+
+
         public override T GetOrDefault()
         {
             return default(T);
@@ -39,6 +45,11 @@ namespace Monads
         public override T GetOrElse(T other)
         {
             return other;
+        }
+
+        public override Try<T> OrElse(Func<T> other)
+        {
+            return Invoke(other);
         }
 
 
