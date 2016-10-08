@@ -45,6 +45,7 @@ namespace Monads.Test
                 .Recover(ex => repo.Create("Jaap"));
 
             Assert.IsTrue(result.IsSuccess);
+            Assert.AreEqual(result.Value.Name, "Jaap");
         }
 
         [TestMethod]
