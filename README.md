@@ -28,6 +28,20 @@ In the next example, some more of the power of `Try` is exposed. Here one of the
 
     Assert.IsTrue(result.IsFailure);
 ```
-Now, the first `Invoke()` call return an employee, but the second statement `Map()` throw an exception. But instead of crashing your programming, the result will be an instance of the `Failure` class, holding the exception that was thrown. 
+Now, the first `Invoke()` call return an employee, but the second statement `Map()` throw an exception. But instead of crashing your programming, the result will be an instance of the `Failure` class, holding the exception that was thrown. If one of the statements in your code returns an instance of `Failure` all following statements are being ignored.
 
-Although this example seems trivial, once you get used to programming with `Try` you will soon realize, it is actually quite powerful in building more robust code, that also becomes much easier to test too.  
+Although this example seems trivial, once you get used to programming with `Try` you will soon realize, it is actually quite powerful in building more robust code, that also becomes much easier to test too.
+
+## Recovering from failure
+The next thing you might want to do is to recover from failure and continue. To this aim there's the `Recover()` methods.
+
+```c#
+    var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
+        .FlatMap(e => e.WillThrowException())
+        .Recover(ex => repo.Create("Jaap"));
+
+    Assert.IsTrue(result.IsSuccess);
+    Assert.AreEqual(result.Value.Name, "Jaap");
+```
+
+In this code example the second statement throws and will return an instance of `Failure`. What the `Recover()` method in the next statement will do is help you get back on track. It will create a new employee (with the name Jaap) and allow you to continue. Quite often, recover statements appear at the end of a block of statements, for instance to recover from REST calls that do not return anything useful.
