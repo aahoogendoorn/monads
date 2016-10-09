@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Monads.Test
 {
@@ -109,6 +110,7 @@ namespace Monads.Test
 
             Assert.AreEqual(result.Name, "Hans");
         }
+<<<<<<< HEAD
         
         [TestMethod]
         public void TestOrElse()
@@ -129,6 +131,20 @@ namespace Monads.Test
                 .Get();
 
             Assert.AreEqual(result.Name, "Hans");
+=======
+
+
+        [TestMethod]
+        public void TestDoSuccess()
+        {
+            var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
+                .Set(e => e.Name = "Walter Franssen is de beste")
+                .Set(e => e.Age = new DateTime(1979, 4, 15))
+                .Get();
+
+            Assert.AreEqual("Walter Franssen is de beste", result.Name);
+            Assert.AreEqual(new DateTime(1979, 4, 15), result.Age);
+>>>>>>> f775e7bb0ac0ce37f151db7b5677ee1a958ed04c
         }
     }
 }
