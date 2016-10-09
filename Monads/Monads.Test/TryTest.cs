@@ -110,8 +110,7 @@ namespace Monads.Test
 
             Assert.AreEqual(result.Name, "Hans");
         }
-<<<<<<< HEAD
-        
+
         [TestMethod]
         public void TestOrElse()
         {
@@ -131,8 +130,7 @@ namespace Monads.Test
                 .Get();
 
             Assert.AreEqual(result.Name, "Hans");
-=======
-
+        }
 
         [TestMethod]
         public void TestDoSuccess()
@@ -144,7 +142,6 @@ namespace Monads.Test
 
             Assert.AreEqual("Walter Franssen is de beste", result.Name);
             Assert.AreEqual(new DateTime(1979, 4, 15), result.Age);
->>>>>>> f775e7bb0ac0ce37f151db7b5677ee1a958ed04c
         }
     }
 }
