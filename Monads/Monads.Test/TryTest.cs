@@ -91,7 +91,6 @@ namespace Monads.Test
             Assert.IsTrue(result.IsFailure);
         }
 
-
         [TestMethod]
         public void TestGetOrElse()
         {
@@ -136,11 +135,11 @@ namespace Monads.Test
         public void TestDoSuccess()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
-                .Set(e => e.Name = "Walter Franssen is de beste")
+                .Set(e => e.Name = "Walter")
                 .Set(e => e.Age = new DateTime(1979, 4, 15))
                 .Get();
 
-            Assert.AreEqual("Walter Franssen is de beste", result.Name);
+            Assert.AreEqual("Walter", result.Name);
             Assert.AreEqual(new DateTime(1979, 4, 15), result.Age);
         }
     }
