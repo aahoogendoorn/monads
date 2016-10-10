@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Monads.Test
 {
-    [TestClass]
+    [TestFixture]
     public class TryTest
     {
         private readonly EmployeeRepository repo = new EmployeeRepository();
 
-        [TestMethod]
+        [Test]
         public void TestMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -19,7 +19,7 @@ namespace Monads.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void TestFlatMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -29,7 +29,7 @@ namespace Monads.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void TestFailureOnMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -38,7 +38,7 @@ namespace Monads.Test
             Assert.IsTrue(result.IsFailure);
         }
 
-        [TestMethod]
+        [Test]
         public void TestRecoverOnFlatMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -49,7 +49,7 @@ namespace Monads.Test
             Assert.AreEqual(result.Value.Name, "Jaap");
         }
 
-        [TestMethod]
+        [Test]
         public void TestSpecificRecoverOnFlatMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -61,7 +61,7 @@ namespace Monads.Test
             Assert.AreEqual(result.Get().Name, "Jaap");
         }
 
-        [TestMethod]
+        [Test]
         public void TestRecoverSkippingSpecificRecoverOnFlatMap()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -73,7 +73,7 @@ namespace Monads.Test
             Assert.AreEqual(result.Value.Name, "Jan");
         }
 
-        [TestMethod]
+        [Test]
         public void TestFilter()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -82,7 +82,7 @@ namespace Monads.Test
             Assert.IsTrue(result.IsSuccess);
         }
 
-        [TestMethod]
+        [Test]
         public void TestFilterNegative()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
@@ -91,7 +91,7 @@ namespace Monads.Test
             Assert.IsTrue(result.IsFailure);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetOrElse()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -100,7 +100,7 @@ namespace Monads.Test
             Assert.AreEqual(result.Name, "Kees");
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetOrElseFails()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
@@ -110,7 +110,7 @@ namespace Monads.Test
             Assert.AreEqual(result.Name, "Hans");
         }
 
-        [TestMethod]
+        [Test]
         public void TestOrElse()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
@@ -120,7 +120,7 @@ namespace Monads.Test
             Assert.AreEqual(result.Name, "Kees");
         }
 
-        [TestMethod]
+        [Test]
         public void TestOrElseFails()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
@@ -131,7 +131,7 @@ namespace Monads.Test
             Assert.AreEqual(result.Name, "Hans");
         }
 
-        [TestMethod]
+        [Test]
         public void TestDoSuccess()
         {
             var result = Try<Employee>.Invoke(() => repo.Create("Frits"))
