@@ -53,16 +53,28 @@ In this code example the second statement throws and will return an instance of 
 In case your code can throw several different exceptions and you want to recover in different ways, the `Try` class offers some additional features as shown in the example below.
 
 ```c#
-        public void TestSpecificRecoverOnFlatMap()
-        {
-            var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
-                .FlatMap(e => e.WillThrowTryException())
-                .Recover<TryException>(e => repo.Create("Jaap"))
-                .Recover(ex => repo.Create("Jan"));
+    var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
+        .FlatMap(e => e.WillThrowTryException())
+        .Recover<TryException>(e => repo.Create("Jaap"))
+        .Recover(ex => repo.Create("Jan"));
 
-            Assert.IsTrue(result.IsSuccess);
-            Assert.AreEqual(result.Get().Name, "Jaap");
-        }
+    Assert.IsTrue(result.IsSuccess);
+    Assert.AreEqual(result.Get().Name, "Jaap");
 ```
 
 Here, the generic `Recover<T>` method only fires when this specific type of exception is thrown in one of the invoked methods.
+
+## What if?
+Next to avoiding try-catch blocks in your code, and making the code robust, the `Try` monad also allows you to avoid many if-statements (the next big thing to avoid after goto-blocks). It allows you to define filters on the results of previous calls to `Invoke()`, `Map()` or `Flatmap()` methods, as in the example below.
+
+
+```c#
+    var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
+        .Filter(e => e.IsNameKees().Value);
+
+    Assert.IsTrue(result.IsSuccess);
+```
+## Starting with return
+All in all, after having used the `Try` monad in many different situations, and in different programming languages, my preferred style of coding has totally changed. These days almost all of the methods I write immediately start with a return statements, followed by a concatenations of `Map()` and `Flatmap` calls - along with a number of other useful features on the `Try` classes. As a result the code I write is smaller and much more compact, much better in adhering to the Single Responsibility Principle. And my code much more robust - as it also catches any exception you might have overlooked when writing more traditional code.
+
+In the meantime, I have conteminated many programmers with this style. At one of my clients the developers actually make it a sport to always start every method with e return statement. Don't hesitate to join in.
