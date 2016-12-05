@@ -6,7 +6,7 @@ During a recent Java project, one of the guys on my team created a small library
 
 Although at first this new monad didn't appeal to me, I soon really started to appreciate this style of programming, where we concatenate series of `Map()` and `FlatMap()` methods, using the power of the `Try` monad, and thus avoiding abundant try-catch blocks, many `if` statements and null checks. Hence, I decided to port this library to C#. 
 
-## Try and succeced
+## Try and succeed
 When programming using the `Try` classes, you can actually avoid most try-catch blocks in code, because the monad `Try` will wrap possible exceptions, and just return whether the actions and functions you've called fail or succeed.
 
 In the (simple) code example below an instance of the class `Employee` is created, the name of the employee is fetched in the `Map()` statement where `e` is really the instance of `Employee` that was created above, and we check whether it ends with the character s. This will return a `Try<bool>`, and we use the property `Value` to get the actual value from the `Try`. 
