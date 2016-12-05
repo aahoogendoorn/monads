@@ -49,3 +49,20 @@ The next thing you might want to do is to recover from failure and continue. To 
 ```
 
 In this code example the second statement throws and will return an instance of `Failure`. What the `Recover()` method in the next statement will do is help you get back on track. It will create a new employee (with the name Jaap) and allow you to continue. Quite often, recover statements appear at the end of a block of statements, for instance to recover from REST calls that do not return anything useful.
+
+In case your code can throw several different exceptions and you want to recover in different ways, the `Try` class offers some additional features as shown in the example below.
+
+```c#
+        public void TestSpecificRecoverOnFlatMap()
+        {
+            var result = Try<Employee>.Invoke(() => repo.Create("Kees"))
+                .FlatMap(e => e.WillThrowTryException())
+                .Recover<TryException>(e => repo.Create("Jaap"))
+                .Recover(ex => repo.Create("Jan"));
+
+            Assert.IsTrue(result.IsSuccess);
+            Assert.AreEqual(result.Get().Name, "Jaap");
+        }
+```
+
+Here, the generic `Recover<T>` method only fires when this specific type of exception is thrown in one of the invoked methods.
